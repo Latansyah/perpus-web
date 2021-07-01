@@ -1,67 +1,41 @@
-<?php include "conn.php"; ?>
+<?php 
+session_start();
+if (empty($_SESSION['username'])){
+	header('location:../index.php');	
+} else {
+	include "../conn.php";
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>PerPusWeb SDN Ngaglik 04 Kota Batu</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <meta name="description" content="Perpustakaan Berbasis Web">
-    <meta name="keywords" content="Perpustakaan, perpus, online, website">
-    <meta name="author" content="JTD 3B - Kelompok 5"/>
+    <meta name="description" content="JTD 3B - Kelompok 5">
+    <meta name="keywords" content="Perpus, Website, Aplikasi, Perpustakaan, Online">
     <!-- bootstrap 3.0.2 -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- font Awesome -->
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
-    <link href="css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <!-- Morris chart -->
-    <link href="css/morris/morris.css" rel="stylesheet" type="text/css" />
+    <link href="../css/morris/morris.css" rel="stylesheet" type="text/css" />
     <!-- jvectormap -->
-    <link href="css/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+    <link href="../css/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
     <!-- Date Picker -->
-    <link href="css/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+    <link href="../css/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
     <!-- fullCalendar -->
     <!-- <link href="css/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css" /> -->
     <!-- Daterange picker -->
-    <link href="css/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+    <link href="../css/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
     <!-- iCheck for checkboxes and radio inputs -->
-    <link href="css/iCheck/all.css" rel="stylesheet" type="text/css" />
+    <link href="../css/iCheck/all.css" rel="stylesheet" type="text/css" />
     <!-- bootstrap wysihtml5 - text editor -->
     <!-- <link href="css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" /> -->
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <!-- Theme style -->
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-    
-    <script type="text/javascript">
-// 1 detik = 1000
-window.setTimeout("waktu()",1000);  
-function waktu() {   
-	var tanggal = new Date();  
-	setTimeout("waktu()",1000);  
-	document.getElementById("output").innerHTML = tanggal.getHours()+":"+tanggal.getMinutes()+":"+tanggal.getSeconds();
-}
-</script>
-<script language="JavaScript">
-var tanggallengkap = new String();
-var namahari = ("Minggu Senin Selasa Rabu Kamis Jumat Sabtu");
-namahari = namahari.split(" ");
-var namabulan = ("Januari Februari Maret April Mei Juni Juli Agustus September Oktober November Desember");
-namabulan = namabulan.split(" ");
-var tgl = new Date();
-var hari = tgl.getDay();
-var tanggal = tgl.getDate();
-var bulan = tgl.getMonth();
-var tahun = tgl.getFullYear();
-tanggallengkap = namahari[hari] + ", " +tanggal + " " + namabulan[bulan] + " " + tahun;
-
-	var popupWindow = null;
-	function centeredPopup(url,winName,w,h,scroll){
-	LeftPosition = (screen.width) ? (screen.width-w)/2 : 0;
-	TopPosition = (screen.height) ? (screen.height-h)/2 : 0;
-	settings ='height='+h+',width='+w+',top='+TopPosition+',left='+LeftPosition+',scrollbars='+scroll+',resizable'
-	popupWindow = window.open(url,winName,settings)
-}
-</script>
+    <link href="../css/style.css" rel="stylesheet" type="text/css" />
 
 
 
@@ -79,322 +53,337 @@ tanggallengkap = namahari[hari] + ", " +tanggal + " " + namabulan[bulan] + " " +
       <body class="skin-black">
         <!-- header logo: style can be found in header.less -->
         <header class="header">
-            <a href="" class="logo">
+            <a href="index.php" class="logo">
                 PerPusWeb
             </a>
-
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
                 <div class="navbar-right">
                     <ul class="nav navbar-nav">
-                        <!-- Messages: style can be found in dropdown.less-->
-                        <li class="messages-menu">
-                        <table width="1000">
-            <tr>
-            <td width="200"><div class="Tanggal"><h4><script language="JavaScript">document.write(tanggallengkap);</script></div></h4></td> 
-            <td align="left" width="30"> - </td>
-            <td align="left" width="620"> <h4><div id="output" class="jam" ></div></h4></td>
-            </tr>
-            </table>
-                        </li>
-                        <li class="dropdown messages-menu">
-                            <a href="#" data-toggle="modal" data-target="#contact">
-                                <i class="fa fa-envelope"></i>
-                                <!--<span class="label label-success">4</span>-->
-                            </a>
-                            </li>
+                        
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
-                            <a href="login.html" data-placement="bottom" data-toggle="tooltip" title="Login Admin">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-user"></i>
+                                <span><?php echo $_SESSION['fullname']; ?> <i class="caret"></i></span>
                             </a>
+                            <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
+                                <li class="dropdown-header text-center">Account</li>
+
+                                    <li>
+                                        <a href="detail-admin.php?hal=edit&kd=<?php echo $_SESSION['user_id'];?>">
+                                        <i class="fa fa-user fa-fw pull-right"></i>
+                                            Profile
+                                        </a>
+                                        <a href="admin.php">
+                                        <i class="fa fa-cog fa-fw pull-right"></i>
+                                            Settings
+                                        </a>
+                                        </li>
+
+                                        <li class="divider"></li>
+
+                                        <li>
+                                            <a href="../logout.php"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </div>
                     </nav>
                 </header>
+                <?php
+$timeout = 10; // Set timeout minutes
+$logout_redirect_url = "../login.html"; // Set logout URL
+
+$timeout = $timeout * 60; // Converts minutes to seconds
+if (isset($_SESSION['start_time'])) {
+    $elapsed_time = time() - $_SESSION['start_time'];
+    if ($elapsed_time >= $timeout) {
+        session_destroy();
+        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
+    }
+}
+$_SESSION['start_time'] = time();
+?>
+<?php } ?>
                 <div class="wrapper row-offcanvas row-offcanvas-left">
                     <!-- Left side column. contains the logo and sidebar -->
+                    <aside class="left-side sidebar-offcanvas">
+                        <!-- sidebar: style can be found in sidebar.less -->
+                        <section class="sidebar">
+                            <!-- Sidebar user panel -->
+                            <div class="user-panel">
+                                <div>
+                                    <center><img src="<?php echo $_SESSION['gambar']; ?>" height="80" width="80" class="img-circle" alt="User Image" style="border: 3px solid white;" /></center>
+                                </div>
+                                <div class="info">
+                                    <center><p><?php echo $_SESSION['fullname']; ?></p></center>
 
-                    <aside>
+                                </div>
+                            </div>
+                            <!-- search form -->
+                            <!--<form action="#" method="get" class="sidebar-form">
+                                <div class="input-group">
+                                    <input type="text" name="q" class="form-control" placeholder="Search..."/>
+                                    <span class="input-group-btn">
+                                        <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                            </form> -->
+                            <!-- /.search form -->
+                            <!-- sidebar menu: : style can be found in sidebar.less -->
+                            <?php include "menu.php"; ?>
+                        </section>
+                        <!-- /.sidebar -->
+                    </aside>
+
+                    <aside class="right-side">
 
                 <!-- Main content -->
                 <section class="content">
 
+                    <div class="row" style="margin-bottom:5px;">
+
+
+                        <div class="col-md-3">
+                            <div class="sm-st clearfix">
+                                <span class="sm-st-icon st-red"><i class="fa fa-user"></i></span>
+                                <div class="sm-st-info">
+                                <?php $tampil=mysql_query("select * from data_anggota order by id desc");
+                        $total=mysql_num_rows($tampil);
+                    ?>
+                                    <span><?php echo "$total"; ?></span>
+                                    Total Anggota
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="sm-st clearfix">
+                                <span class="sm-st-icon st-violet"><i class="fa fa-book"></i></span>
+                                <div class="sm-st-info">
+                                <?php $tampil=mysql_query("select * from data_buku order by id desc");
+                        $total1=mysql_num_rows($tampil);
+                    ?>
+                                    <span><?php echo "$total1"; ?></span>
+                                    Total Buku
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="sm-st clearfix">
+                                <span class="sm-st-icon st-blue"><i class="fa fa-refresh fa-spin fa-1x"></i></span>
+                                <div class="sm-st-info">
+                                <?php $tampil=mysql_query("select * from trans_pinjam order by id desc");
+                        $total2=mysql_num_rows($tampil);
+                    ?>
+                                    <span><?php echo "$total2"; ?></span>
+                                    Total Peminjaman Buku
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="sm-st clearfix">
+                                <span class="sm-st-icon st-green"><i class="fa fa-group"></i></span>
+                                <div class="sm-st-info">
+                                <?php $tampil=mysql_query("select * from pengunjung order by id desc");
+                        $total3=mysql_num_rows($tampil);
+                    ?>
+                                    <span><?php echo "$total3"; ?></span>
+                                    Total Pengunjung
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Main row -->
                     <div class="row">
-                    <div class="col-lg-12">
-            <div class="alert alert-info alert-dismissable">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-             <!--<marquee behavior="alternate" direction="left" onmouseover="this.stop();" onmouseout="this.start();">-->
-		<b>Selamat Datang di PerPusWeb SDN Ngaglik 04 Kota Batu, Untuk Login Admin silahkan klik Icon User atau klik <a href="login.html">disini</a></b>
-          </div>
-            </div>
 
                         <div class="col-md-8">
+                            <!--earning graph start-->
                             <section class="panel">
-                              <header class="panel-heading">
-                                  <b>Data Pengunjung Hari Ini</b>
-                            </header>
-                            <div class="panel-body table-responsive">
-                            <?php
-                    $tanggal = date("Y/m/d");
-                    $query1="select * from pengunjung where tgl_kunjung='$tanggal'";
-                    $tampil=mysql_query($query1) or die(mysql_error());
-                    ?>
-                                <table class="table table-hover">
-                                  <thead>
-                                    <tr>
-                                        <th>Nama</th>
-                                        <th>Tanggal</th>
-                                        <th>Jam Berkunjung </th>
-                                        <th>Keperluan</th>
-                                  </tr>
-                              </thead>
-                              
-                                 <?php while($data=mysql_fetch_array($tampil))
-                    { ?>
-                    <tbody>
-                    <tr>
-                    <td><?php echo $data['nama']; ?></td>
-                    <td><?php echo $data['tgl_kunjung'];?></td>
-                    <td><?php echo $data['jam_kunjung'];?></td>
-                    <td><?php echo $data['perlu1'];?></td>
-                    <?php   
-              } 
-              ?>
-              
-                      </table><hr />
-                    <?php $tampil=mysql_query("select * from pengunjung where tgl_kunjung='$tanggal'");
-                          $user=mysql_num_rows($tampil);
-                    ?>
-                  <center><h4>Jumlah Pengunjung Hari Ini : <?php echo "$user"; ?> Orang </h4> </center>
-                </div>
-              </section>
+                                <header class="panel-heading">
+                                    Grafik Peminjaman Buku
+                                </header>
+                                <div class="panel-body">
+                                    <canvas id="linechart" width="600" height="330"></canvas>
+                                </div>
+                                        </section>
+                                        <!--earning graph end-->
 
-                    
-          </div><!--end col-6 -->
-          <div class="col-md-4">
-            <section class="panel">
-                <header class="panel-heading">
-                    <b>Buku Pengunjung</b>
-                </header>
-                <div class="panel-body">
-                    <div class="twt-area">
-                        <form class="form-horizontal style-form" style="margin-top: 20px;" action="insert-pengunjung.php" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">No </label>
-                              <div class="col-sm-10">
-                                  <input name="id" type="text" id="id" class="form-control" placeholder="Tidak perlu di isi" autofocus="on" readonly="readonly" />
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Nama</label>
-                              <div class="col-sm-10">
-                                  <input name="nama" type="text" id="nama" class="form-control" placeholder="Nama Anda" required />
-                                  <!--<span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>-->
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Jenkel</label>
-                                  <div class="col-sm-6">
-                                  <select class="form-control" name="jk" id="jk">
-                                  <option> -- Pilih Salah Satu --</option>
-                                  <option value="L"> Laki - Laki</option>
-                                  <option value="P"> Perempuan</option>
-                                  </select>
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Kelas</label>
-                              <div class="col-sm-6">
-                                  <select class="form-control" name="kelas" id="kelas">
-                                  <option> -- Pilih Salah Satu --</option>
-                                  <option value="1"> 1</option>
-                                  <option value="2"> 2</option>
-                                  <option value="3"> 3</option>
-                                  <option value="4"> 4</option>
-                                  <option value="5"> 5</option>
-                                  <option value="6"> 6</option>
-                                  </select>
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Perlu</label>
-                              <div class="col-sm-10">
-                                  <input name="perlu1" type="text" id="perlu1" class="form-control" placeholder="Keperluan" required />
-                                  <!--<span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>-->
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Cari?</label>
-                              <div class="col-sm-10">
-                                  <input name="cari" type="text" id="cari" class="form-control" placeholder="Apa yang anda cari.?" required />
-                                  <!--<span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>-->
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Saran</label>
-                              <div class="col-sm-10">
-                                  <textarea rows="4" name="saran" id="saran" class="form-control" placeholder="Saran Anda untuk PerPusWeb" cols="25"></textarea>
-                                  <!--<span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>-->
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Tanggal</label>
-                              <div class="col-sm-10">
-                                  <input name="tgl_kunjung" type="text" class="form-control" id="tgl_kunjung" value="<?php echo "".date("Y/m/d").""; ?>" readonly="readonly"/>
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Jam</label>
-                              <div class="col-sm-10">
-                                  <input name="jam_kunjung" type="text" class="form-control" id="jam_kunjung" value="<?php echo "".gmdate("H:i:s").""?>"readonly="readonly"/>
+                                    </div>
+                                    <div class="col-lg-4">
 
-                              </div>
-                          </div>
-                          <div class="form-group" style="margin-bottom: 20px;">
-                              <label class="col-sm-2 col-sm-2 control-label"></label>
-                              <div class="col-sm-8">
-                                  <input type="submit" value="Simpan" name="simpan" class="btn btn-sm btn-primary" />&nbsp;
-	                              <a href="input-anggota.php" class="btn btn-sm btn-danger">Batal </a>
-                              </div>
-                          </div>
+                                        <!--chat start-->
+                                        <section class="panel">
+                                            <header class="panel-heading">
+                                                Pemberitahuan
+                                            </header>
+                                                <div class="panel-body" id="noti-box">
+                                                <?php
+                                                $tampil=mysql_query("select * from data_anggota order by id desc limit 1");
+                                                while($data2=mysql_fetch_array($tampil)){
+                                                ?>
+                                                    <div class="alert alert-block alert-danger">
+                                                        <button data-dismiss="alert" class="close close-sm" type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                        <strong><?php echo $data2['nama'];?></strong>, Telah terdaftar menjadi anggota perpustakaan.
+                                                    </div>
+                                                    <?php } ?>
+                                                    
+                                                <?php
+                                                $tampil=mysql_query("select * from admin order by user_id desc limit 1");
+                                                while($data3=mysql_fetch_array($tampil)){
+                                                ?>
+                                                    <div class="alert alert-success">
+                                                        <button data-dismiss="alert" class="close close-sm" type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                        <strong><?php echo $data3['fullname']; ?></strong>, Telah ditambahkan menjadi admin PerPusWeb yang baru. 
+                                                    </div>
+                                                <?php } ?>
+                                                    
+                                                <?php
+                                                $tampil=mysql_query("select * from data_buku order by id desc limit 1");
+                                                while($data4=mysql_fetch_array($tampil)){
+                                                ?>
+                                                    <div class="alert alert-info">
+                                                        <button data-dismiss="alert" class="close close-sm" type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                        <strong><?php echo $data4['judul']; ?></strong>, Buku bacaan baru yang ada di PerPusWeb.
+                                                    </div>
+                                                <?php } ?>
+                                                   
+                                                <?php
+                                                $tampil=mysql_query("select * from pengunjung order by id desc limit 1");
+                                                while($data5=mysql_fetch_array($tampil)){
+                                                ?>   
+                                                    <div class="alert alert-warning">
+                                                        <button data-dismiss="alert" class="close close-sm" type="button">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                        <strong><?php echo $data5['nama']; ?> </strong> Pengunjung baru di PerPusWeb.
+                                                    </div>
+                                                <?php } ?>
+                                                </div>
+                                        </section>
 
-                        </form>
-                    </div>
-                </div>
-            </section>
-        </div>
 
-                    </div>
-                      </section>
-                  
-<!-- Data Total Pengunjung -->                        
-                        <div class="col-md-12">
-                            <section class="panel">
-                              <header class="panel-heading">
-                                <b>  Data Akumulasi Pengunjung</b>
-                            </header>
-                            <div class="panel-body table-responsive">
-                            <?php
-                    $query="select * from pengunjung order by id desc limit 10";
-                    $tampil=mysql_query($query) or die(mysql_error());
-                    ?>
-                                <table class="table table-hover">
-                                  <thead>
-                                    <tr>
-                                        <th>Nama</th>
-                                        <th>Jenis Kelamin</th>
-                                        <th>Kelas</th>
-                                        <th>Tanggal</th>
-                                        <th>Jam Berkunjung </th>
-                                        <th>Keperluan</th>
-                                        <th>Buku Yang di Cari</th>
-                                  </tr>
-                              </thead>
-                              
-                                 <?php while($data1=mysql_fetch_array($tampil))
-                    { ?>
-                    <tbody>
-                    <tr>
-                    <td><?php echo $data1['nama']; ?></td>
-                    <td><?php echo $data1['jk']; ?></td>
-                    <td><?php echo $data1['kelas'];?></td>
-                    <td><?php echo $data1['tgl_kunjung'];?></td>
-                    <td><?php echo $data1['jam_kunjung'];?></td>
-                    <td><?php echo $data1['perlu1'];?></td>
-                    <td><?php echo $data1['cari'];?></td>
-                    <?php   
-              } 
-              ?>
-              
-                      </table><hr />
-                  <?php $tampil1=mysql_query("select * from pengunjung order by id");
-                        $user1=mysql_num_rows($tampil1);
-                    ?>
-                  <center><h4>Jumlah Total Pengunjung : <?php echo "$user1"; ?> Orang </h4> </center>
+
+                      </div>
+
+
                   </div>
-              </section>
-
                     
-          </div>
-          </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="panel">
+                                <header class="panel-heading">
+                                    Daftar Anggota Baru
+                                </header><?php
+                        $tampil=mysql_query("select * from data_anggota order by id desc limit 3");
+                        while($data1=mysql_fetch_array($tampil)){
+                        ?>
+                                <ul class="list-group teammates">
+                                    <li class="list-group-item">
+                                        <a href="anggota.php"><img src="<?php echo $data1['foto']; ?>" width="50" height="50" style="border: 3px solid #555555;"></a>
+                                        <a href="anggota.php"><?php echo $data1['nama']; ?></a>
+                                    </li>
+                                </ul>
+                               <?php } ?>
+                                <div class="panel-footer bg-white">
+                                    <!-- <span class="pull-right badge badge-info">32</span> -->
+                                    <a href="anggota.php" class="btn btn-sm btn-info">Data Anggota <i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                          <section class="panel tasks-widget">
+                              <header class="panel-heading">
+                                Daftar Bacaan PerPusWeb
+                            </header>
+                            <div class="panel-body">
+
+                              <div class="task-content">
+
+                                  <ul class="task-list">
+                                  <?php
+                                  $tampil=mysql_query("select * from data_buku order by id desc limit 5");
+                                  while($data6=mysql_fetch_array($tampil)){
+                                  ?>
+                                      <li>
+                                          <div class="task-checkbox">
+                                              <!-- <input type="checkbox" class="list-child" value=""  /> -->
+                                              <input type="checkbox" class="flat-grey list-child"/>
+                                              <!-- <input type="checkbox" class="square-grey"/> -->
+                                          </div>
+                                          <div class="task-title">
+                                              <span class="task-title-sp"><?php echo $data6['judul']; ?></span>
+                                              <span class="label label-primary"><?php echo $data6['tgl_input']; ?></span>
+                                              <div class="pull-right hidden-phone">
+                                                  <button class="btn btn-info btn-xs"><i class="fa fa-check"></i></button>
+                                                  <button class="btn btn-success btn-xs"><i class="fa fa-pencil"></i></button>
+                                                  <button class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button>
+                                              </div>
+                                          </div>
+                                      </li>     
+                                    <?php } ?>
+                                  </ul>
+                              </div>
+
+                              <div class=" add-task-row">
+                                  <a class="btn btn-warning btn-sm pull-left" href="buku.php">Lihat Buku Bacaan</a>
+                                  <!--<a class="btn btn-default btn-sm pull-right" href="#">See All Tasks</a>-->
+                              </div>
+                          </div>
+                      </section>
+                  </div>
+              </div>
               <!-- row end -->
-                <!-- /.content -->
-                <div class="footer-main"
-                     a href="" target="_blank">PerPusWeb SDN Ngaglik 04 Kota Batu</a> 2021
+                </section><!-- /.content -->
+                <div class="footer-main" a href="http://www.jtd3bkelompok5.com" target="_blank">PerPusWeb SDN Ngaglik 04 Kota Batu</a> 2021
                 </div>
             </aside><!-- /.right-side -->
 
         </div><!-- ./wrapper -->
-        
-        <!-- Modal Dialog Contact -->
-<div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">PerPusWeb SDN Ngaglik 04 Kota Batu</h4>
-      </div>
-      <div class="modal-body">
-      PerPusWeb SDN Ngaglik 04 Kota Batu aplikasi perpustakaan bebasis website yang responsif untuk mempermudah pendataan di perpustakaan SDN Ngaglik 04 Kota Batu.
-      PerPusWeb dibuat oleh JTD 3B - Kelompok 5 yang dapat dihubungi di :
-      <table>
-      <tr>
-      <td>No Telepon</td> <td>:</td> <td>0813 5754 7637</td>
-      </tr>
-      <br />
-      <tr>
-      <td>E-mail</td><td>:</td> <td><a href="mailto:jtd3bkelompok5@jtd.com">jtd3bkelompok5@jtd.com</a> | <a href="mailto:nasyaaa@jtd.com">nasyaaa@jtd.com</a></td>
-      </tr> 
-      <br />
-      <tr>
-      <td>Blog</td>       <td>:</td> <td><a href="http://www.jtd3bkelompok5.com" target="_blank">www.jtd3bkelompok5.com</a></td>
-      </tr>
-      <br />
-      <tr>
-      <td>Website</td>    <td>:</td> <td><a href="http://www.jtd3bkelompok5.com" target="_blank">www.jtd3bkelompok5.com</a></td>
-      </tr>
-       </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end dialog modal -->
 
 
         <!-- jQuery 2.0.2 -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-        <script src="js/jquery.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.min.js" type="text/javascript"></script>
 
         <!-- jQuery UI 1.10.3 -->
-        <script src="js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
         <!-- Bootstrap -->
-        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.min.js" type="text/javascript"></script>
         <!-- daterangepicker -->
-        <script src="js/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+        <script src="../js/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
 
-        <script src="js/plugins/chart.js" type="text/javascript"></script>
+        <script src="../js/plugins/chart.js" type="text/javascript"></script>
 
         <!-- datepicker
         <script src="js/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>-->
         <!-- Bootstrap WYSIHTML5
         <script src="js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>-->
         <!-- iCheck -->
-        <script src="js/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+        <script src="../js/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
         <!-- calendar -->
-        <script src="js/plugins/fullcalendar/fullcalendar.js" type="text/javascript"></script>
+        <script src="../js/plugins/fullcalendar/fullcalendar.js" type="text/javascript"></script>
 
         <!-- Director App -->
-        <script src="js/Director/app.js" type="text/javascript"></script>
+        <script src="../js/Director/app.js" type="text/javascript"></script>
 
         <!-- Director dashboard demo (This is only for demo purposes) -->
-        <script src="js/Director/dashboard.js" type="text/javascript"></script>
+        <script src="../js/Director/dashboard.js" type="text/javascript"></script>
 
         <!-- Director for demo purposes -->
         <script type="text/javascript">
